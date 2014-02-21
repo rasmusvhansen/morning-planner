@@ -38,7 +38,7 @@ angular.module('morningPlannerApp')
       var now = new Date();
       $scope.currentTask = $scope.tasks.reduce(function (prev, current) {
         return current.time > now ? prev : current;
-      }, {});
+      });
       timeout = $timeout(setCurrentTask, 1000);
     }
 
