@@ -1,0 +1,34 @@
+<div class="header">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a ng-href="#">Home</a></li>
+        <li><a ng-href="#">About</a></li>
+        <li><a ng-href="#">Contact</a></li>
+    </ul>
+    <h3 class="text-muted">morningPlanner</h3>
+</div>
+
+<clock format="HH:mm:ss"></clock>
+        <div class="jumbotron">
+            <h1>{{currentTask.title}} <small>{{currentTask.time | date:'HH:mm'}}</small></h1>
+        </div>
+
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Tid</th>
+        <th>Aktivitet</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="task in tasks" ng-class="{'task--active': task == currentTask, 'task--past': task.time < now() && task != currentTask}">
+        <td>{{task.time | date:'HH:mm'}}</td>
+        <td>{{task.title}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="footer">
+    <p>♥ from the Yeoman team</p>
+</div>
