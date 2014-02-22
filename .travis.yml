@@ -4,6 +4,7 @@ node_js:
   - '0.10'
 install:
   - 'npm install -g bower grunt-cli'
+  - 'npm install'
   - 'bower install'
 script:
   - 'grunt'
