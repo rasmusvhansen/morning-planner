@@ -25,6 +25,21 @@ module.exports = function (grunt) {
       dist: 'dist'
     },
 
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      pages: {
+        options: {
+          remote: 'https://github.com/rasmusvhansen/rasmusvhansen.github.io.git',
+          branch: 'master'
+        }
+      }
+    },
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
