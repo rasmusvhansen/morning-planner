@@ -1,14 +1,55 @@
+/* ----------------------------IMPORTS----------------------------- */
+
+
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
 @import 'sass-bootstrap/lib/bootstrap';
+@import 'compass/css3/images';
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
 
-.task {
+/* ----------------------------ELEMENTS---------------------------- */
+body {
+  background-color: #333;
+  color: #aaa;
 
 }
-  .task--active td {
-    background-color: #a7ffec !important;
+
+
+
+/* ----------------------------OBJECTS----------------------------- */
+.container {
+  background-color: #444;
+  @include border-radius(4px, 4px);
+}
+
+.table-container {
+  background-color: #aaa;
+  color: #444;
+  @include border-radius(4px, 4px);
+  @include box-shadow(#333 0px 0px 5px 0px inset);
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+
+.task-row {
+
+}
+  .task-row--active td {
+    @include background-image(linear-gradient(#9e2812, #6f0d0d));
+    color: #aaa;
+    text-decoration: none !important;
   }
 
-  .task--past td {
-    color: #ccccdd !important;
+  .task-row--past td {
+    //color: #ccccdd !important;
+    text-decoration: line-through;
   }
+
+.jumbotron.task-main {
+  @include background-image(linear-gradient(#9e2812, #6f0d0d));
+  @include box-shadow();
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+
+}
+

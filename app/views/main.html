@@ -8,26 +8,31 @@
 </div>-->
 
 <clock format="HH:mm:ss"></clock>
-        <div class="jumbotron">
-            <h1>{{currentTask.title}} <small>{{currentTask.time | date:'HH:mm'}}</small></h1>
-        </div>
+<div class="jumbotron task-main">
+    <h1>{{currentTask.time | date:'HH:mm'}}
+        <small>{{currentTask.title}}</small>
+    </h1>
+</div>
 
 
+<div class="table-container">
+    <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+            <th>Tid</th>
+            <th>Aktivitet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="task in tasks"
+            ng-class="{'task-row--active': task == currentTask, 'task-row--past': task.time < now() && task != currentTask}">
+            <td>{{task.time | date:'HH:mm'}}</td>
+            <td>{{task.title}}</td>
+        </tr>
+        </tbody>
+    </table>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Tid</th>
-        <th>Aktivitet</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="task in tasks" ng-class="{'task--active': task == currentTask, 'task--past': task.time < now() && task != currentTask}">
-        <td>{{task.time | date:'HH:mm'}}</td>
-        <td>{{task.title}}</td>
-    </tr>
-    </tbody>
-</table>
+</div>
 
 <div class="footer">
     <p>Made by rasmusvhansen</p>
