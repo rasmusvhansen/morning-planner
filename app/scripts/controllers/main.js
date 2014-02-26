@@ -1,45 +1,51 @@
 'use strict';
 
 angular.module('morningPlannerApp')
-  .controller('MainCtrl', function ($scope, $timeout) {
+  .controller('MainCtrl', function ($scope, $timeout, $window) {
     var timeout;
-
-    $scope.tasks = [
-      { time: '06:30', title: 'Stå op'},
-      { time: '06:40', title: 'Væk Mads'},
-      { time: '06:45', title: 'Spis morgenmad'},
-      { time: '07:00', title: 'Mads i tøjet'},
-      { time: '07:05', title: 'Børste tænder'},
-      { time: '07:10', title: 'Pakke tasker'},
-      { time: '07:15', title: 'Overtøj på'},
-      { time: '07:23', title: 'Ud af døren'},
-      { time: '22:41', title: 'Kod noget endnu mere'},
-      { time: '23:42', title: 'Gå i seng'},
-      { time: '23:40', title: 'Gå nu i seng'},
-      { time: '23:55', title: 'Gå nu i seng!!!'},
-    ];
+    $scope.tasks = angular.fromJson($window.localStorage.tasks) || [];
+    $scope.tasks.forEach(function (t) {t.time = new Date(t.time); });
 
     $scope.now = function () {
       return new Date();
     };
 
-    $scope.tasks = $scope.tasks.map(function (t) {
-      return { time: moment(t.time, 'HH:mm').toDate(), title: t.title };
-    })
-      .sort(function (t1, t2) {
-        return t1.time - t2.time;
+    $scope.task = {};
+
+    $scope.createNewTask = function (form) {
+      $scope.tasks.push({time: moment($scope.task.hours + ':' + $scope.task.minutes, 'HH:mm').toDate(), title: $scope.task.title});
+      $scope.tasks = $scope.tasks.sort(function (t1, t2) {
+        return getTime(t1.time) > getTime(t2.time) ? 1 : -1;
       });
 
+      $scope.task = {};
+      form.$setPristine();
+      saveToStore();
+    };
+
+    function saveToStore() {
+      $window.localStorage.tasks = angular.toJson($scope.tasks);
+    }
+
+    $scope.deleteTask = function (task) {
+      $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+      saveToStore();
+    };
+
     $scope.dateFilter = function (t) {
-      return t.time > new Date();
+      return getTime(t.time) > getTime(new Date());
     };
 
     function setCurrentTask() {
       var now = new Date();
       $scope.currentTask = $scope.tasks.reduce(function (prev, current) {
-        return current.time > now ? prev : current;
-      });
+        return getTime(current.time) > getTime(now) ? prev : current;
+      }, {time: undefined});
       timeout = $timeout(setCurrentTask, 1000);
+    }
+
+    function getTime(date) {
+      return moment(date).format('HH:mm');
     }
 
     setCurrentTask();
@@ -49,5 +55,6 @@ angular.module('morningPlannerApp')
         $timeout.cancel(timeout);
       }
     });
+
 
   });

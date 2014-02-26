@@ -22,8 +22,6 @@ body {
   @include border-radius(4px, 4px);
 }
 
-
-
 .table-container {
   background-color: #aaa;
   color: #444;
@@ -31,8 +29,30 @@ body {
   @include box-shadow(#333 0px 0px 5px 0px inset);
   padding-left: 4px;
   padding-right: 4px;
+  position: relative;
 }
 
+.add-task {
+  @extend .pull-right;
+  right: 5px;
+  margin: 2px;
+}
+
+.time-field {
+  @extend .form-control;
+  width: 50px;
+
+}
+
+.add-button {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+}
+
+.add-button:focus, .add-button:active {
+  outline: none;
+}
 
 .task-row {
 
@@ -57,5 +77,9 @@ body {
 /* ----------------------------MODIFIERS--------------------------- */
 .highlight-bg {
   @include background-image(linear-gradient(#9e2812, #6f0d0d));
+}
+
+input.ng-dirty.ng-invalid {
+  outline: 1px solid red;
 }
 
