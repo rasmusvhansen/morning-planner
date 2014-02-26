@@ -3,5 +3,6 @@
 angular.module('morningPlannerApp', [
   'ngCookies',
   'ngResource',
-  'ngSanitize'
+  'ngSanitize',
+  'ui.bootstrap'
 ]);
