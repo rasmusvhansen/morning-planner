@@ -3,8 +3,6 @@ node_js:
   - '0.10'
 before_install:
   - 'gem install compass'
-  - 'gem uninstall sass -aIx'
-  - 'gem install sass --version 3.2.13'
 install:
   - 'npm install -g bower grunt-cli'
   - 'npm install'
